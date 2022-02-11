@@ -1,9 +1,11 @@
+import {BrowserRouter} from "react-router-dom";
+import AppRouter from "./components/app-router";
 
 function App() {
   return (
-    <div className="bg-pink-400">
-      HELLO
-    </div>
+    <BrowserRouter>
+        <AppRouter/>
+    </BrowserRouter>
   );
 }
 
