@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# FootBoiCheck
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Футбол для настоящих dungeon masters
 
-## Available Scripts
+## Структура 
 
-In the project directory, you can run:
+_**src/api**_ - папка для размещения запросов к серверному приложению.
 
-### `npm start`
+_**src/components**_ - папка для размещения компонентов.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+_**src/config**_ - папка для размещения конфигурационных файлов.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+_**src/pages**_ - папка для размещения страниц приложения.
 
-### `npm test`
+_**src/routes**_ - папка для размещения маршрутизации.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+_**src/utils**_ - папка для размещения констант и многоиспользуемых функций.
 
-### `npm run build`
+## Правила оформления
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1) Для каждого компонента должна быть папка оформленная в стиле kebab-case, как и название компонента. Также в папке компонента должен присутсвовать файл index.js в котрый импортируется и из которого экспортируется компонент папки.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2) Микрокомпоненты какого либо компонента хранятся в папке основного компонента.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3) Для роутов каждой сущности создается отдельный файл с названием сущности и припиской "API" в конце
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+##Авторы
+###Лидеры
+* Костерин Сергей - главный лид всей команды фронта
+* Крупкин Игорь - лид первой команды фронта
+* Пирогов Михаил - лид второй команды фронта
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+###Участники первой команды
+* Лесив Анастасия - разработчик раздела "Команды"
+* Одинаев Георгий - разработчик раздела "Турниры"
+* Банникова Мария - разработчик разделла "Менеджмент этапов турнира"
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+###Участники второй команды
+* Мячиков Тимофей -
+* Исмакова Даяна -
+* Андронов Максим -
