@@ -38,6 +38,8 @@ module.exports = {
       fuchsia: colors.fuchsia,
       pink: colors.pink,
       rose: colors.rose,
+      mustard: '#e2af1e',
+      bear: '#ac5e00',
     }),
     columns: {
       auto: 'auto',
@@ -370,6 +372,7 @@ module.exports = {
         '"Courier New"',
         'monospace',
       ],
+      tahoma: ['Tahoma', 'serif'],
     },
     fontSize: {
       xs: ['0.75rem', { lineHeight: '1rem' }],
