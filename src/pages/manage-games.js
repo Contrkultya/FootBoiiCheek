@@ -56,7 +56,7 @@ const ManageGames = ({button}) => {
 
     return (
       <div>
-          <div className="max-w-6xl mx-auto font-tahoma p-12">
+          <div className="max-w-xl mx-auto font-tahoma p-12">
             <div className="flex flex-col space-y-12">
                 <div className="flex space-x-12">
                     <select onChange={e => setGames(e.target.value)} className='border-solid border-2 border-black py-2 px-2 pr-16'>
@@ -68,27 +68,28 @@ const ManageGames = ({button}) => {
                     <option value="F">Group F</option>
                     </select>
                 </div>
-                {console.log(game)}
                 <table>
-                    <thead className='text-center'>
+                    <thead>
                         <tr>
-                            <th>Games</th>
+                            <th className='text-left'>Games</th>
                             <th>Result</th>
                             <th></th>
                         </tr>
                     </thead>
-                    {A.map((group, i) => (
-                    <tr key={i}>
-                    <td>{group.games}</td>
-                    <td>{group.result}</td>
-                    <td>
-                        {" "}
-                        <button className='bg-mustard hover:bg-bear text-black font-bold py-2 flex-1' value ={group.games}>
-                        Edit...
-                        </button>
-                    </td>
-                    </tr>
-                    ))}
+                    <tbody>
+                        {A.map((group, i) => (
+                        <tr key={i}>
+                        <td>{group.games}</td>
+                        <td className='text-center'>{group.result}</td>
+                        <td>
+                            {" "}
+                            <button className='bg-mustard hover:bg-bear text-black font-bold py-2 flex-1' value ={group.games}>
+                            Edit...
+                            </button>
+                        </td>
+                        </tr>
+                        ))}
+                    </tbody>
               </table>
               <div className="w-full flex justify-between mt-12 space-x-12">
                 <button className="bg-mustard hover:bg-bear text-black font-bold py-2 flex-1">Finish {button}</button>
