@@ -1,4 +1,4 @@
-import {MAIN_PAGE_ROUTE, MANAGE_EXECUTION, MANAGE_GAMES} from "../utils/routeNames";
+import {ALLOCATE_TEAMS, MAIN_PAGE_ROUTE, MANAGE_EXECUTION, MANAGE_GAMES} from "../utils/routeNames";
 import {MANAGE_TEAMS_ROUTE} from "../utils/routeNames";
 import {ADD_EDIT_TEAM} from "../utils/routeNames";
 import {MANAGE_TOURNAMENTS} from "../utils/routeNames";
@@ -9,6 +9,7 @@ import AddEditTeam from "../pages/add-edit-team";
 import ManageTournaments from "../pages/manage-tournaments";
 import ManageExecution from "../pages/manage-execution";
 import ManageGames from "../pages/manage-games";
+import AllocateTeams from "../pages/allocate-teams";
 
 export const routes = [
     {
@@ -37,5 +38,9 @@ export const routes = [
     {
         path: MANAGE_GAMES,
         Component: ManageGames
+    },
+    {
+        path: ALLOCATE_TEAMS,
+        Component: AllocateTeams
     }
 ];
