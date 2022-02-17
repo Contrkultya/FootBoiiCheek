@@ -16,7 +16,7 @@ const ManageExecution = () => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td><button className="bg-mustard hover:bg-bear text-black font-bold py-2 min-w-full flex-1">Allocate Teams to Groups...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button></td>
+                            <td><button onClick={() => history("/allocate-teams")} className="bg-mustard hover:bg-bear text-black font-bold py-2 min-w-full flex-1">Allocate Teams to Groups...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button></td>
                             <td><p>yes</p></td>
                         </tr>
                     </tbody>
