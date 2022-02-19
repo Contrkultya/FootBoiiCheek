@@ -2,12 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-.btn {
-    @apply text-gray-900 ease-in-out transition-colors duration-150 bg-mustard hover:bg-bear focus:ring-2
-    focus:ring-yellow-500 font-semibold rounded-lg text-sm px-5 py-2.5 text-center
-    mr-2 mb-2 focus:bg-bear;
+body{
+    overflow: hidden !important;
 }
-
+body > #root > div {
+    height: 100vh;
+    width: 100vw;
+}
+.btn {
+    @apply text-white ease-in-out transition-colors duration-150 bg-mustard focus:ring-2
+    focus:ring-yellow-500 font-semibold rounded-lg text-sm px-5 py-2.5 text-center
+    mr-2 mb-2 focus:bg-bear min-w-min w-32;
+}
+.btn:enabled {
+    @apply  hover:bg-bear
+}
+.btn.close{
+    @apply text-gray-700 bg-blue-700/20
+}
+.btn.close:enabled {
+    @apply hover:bg-blue-900/20
+}
 .input-label {
     @apply block text-sm font-medium text-gray-900;
 }
@@ -17,3 +32,74 @@
     focus:ring-yellow-500 focus:ring-2 focus:border-yellow-500 block w-full p-2.5;
 }
 
+
+/* Перезапись существующих стилей */
+.k-justify-content-stretch > .btn{
+    flex: unset;
+}
+.k-justify-content-stretch > .btn:nth-child(1){
+    margin-left: auto;
+}
+.k-dialog-titlebar {
+    background-color: #e2af1e !important;
+    border-radius: 1rem 1rem 0 0 !important;
+}
+.k-window {
+    border-radius: 1rem !important;
+    box-shadow: 0 5px 10px 10px rgba(0, 0, 0,  0.1) !important;
+}
+.k-animation-container{
+    height: calc(100% - 10px);
+}
+.k-child-animation-container, div[role='tabpanel']{
+    height: 100%;
+}
+.k-tabstrip-top > .k-tabstrip-items-wrapper .k-item {
+    border-radius: 0.7rem 0.7rem 0 0 !important;
+}
+.k-grid{
+    border-radius: 0.8rem;
+}
+.k-tabstrip {
+    height: 100%;
+}
+.k-content {
+    height: 100%;
+}
+.k-grid-header{
+    border-radius: 1rem 1rem 0 0;
+}
+.k-grid-pager {
+    border-radius: 0 0 1rem 1rem;
+}
+.k-window-content{
+    display: flex;
+    flex-direction: column;
+}
+.k-window-content > div:nth-child(1) {
+    flex: 20;
+}
+.k-window-content > div:nth-last-child {
+    flex: 1;
+}
+.k-toolbar {
+    padding: 5px 5px 0px 5px!important;
+    border-radius: 1rem 1rem 0 0 !important;
+}
+.toolbar-btn {
+    padding-bottom: 5px;
+    padding-top: 5px;
+    height:min-content;
+    width:min-content;
+}
+.toolbar-btn:disabled {
+    opacity: 0.6;
+}
+body>.k-animation-container.k-animation-container-relative{
+    height: auto;
+}
+.k-animation-container.k-animation-container-relative.k-animation-container-shown {
+    max-height: 400px;
+    height: auto;
+    overflow: auto;
+}

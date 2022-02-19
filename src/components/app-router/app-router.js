@@ -1,7 +1,7 @@
 import React from 'react';
 import {Routes, Route, Navigate} from "react-router-dom";
 import {routes} from "../../routes";
-import {MAIN_PAGE_ROUTE} from "../../utils/routeNames";
+import {MAIN_PAGE_ROUTE} from "../../shared/utils/routeNames";
 
 
 
