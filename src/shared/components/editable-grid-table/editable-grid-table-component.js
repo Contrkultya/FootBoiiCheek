@@ -153,7 +153,7 @@ class EditableGridTableComponent extends React.Component {
             case "add":
                 if (this.props.mode === TABLE_VIEW_MODE.DIALOG_EDIT) {
                     this.setState({
-                        selected: null,
+                        selected: {},
                         dialogOpen: true
                     })
                 }else {

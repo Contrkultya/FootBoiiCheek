@@ -50,8 +50,8 @@ class GameFormComponent extends React.Component {
 
     eventTableModel = [
         {name:'min', type:FORM_CONTROL_TYPE.NUMBER, label:'Min'},
-        {name:'event', label: 'Event', type:FORM_CONTROL_TYPE.OBJECT, available:[{id:0, name:'Red Card'}, {id:1, name:'Green Card'}]},
-        {name:'team', label:'Team', type:FORM_CONTROL_TYPE.OBJECT, available:[{id:0, name:'K-1'}, {id:1, name:'K-2'}]},
+        {name:'event', label: 'Event', type:FORM_CONTROL_TYPE.OBJECT, available:[{id:0, name:'Red Card'}, {id:2, name:'Green Card'}]},
+        {name:'team', label:'Team', type:FORM_CONTROL_TYPE.OBJECT, available:[{id:0, name:'K-1'}, {id:2, name:'K-2'}]},
         {name:'description', label: 'Desc', type: FORM_CONTROL_TYPE.STRING}
         ]
 

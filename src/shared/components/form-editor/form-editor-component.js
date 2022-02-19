@@ -10,6 +10,14 @@ class FormEditorComponent extends React.Component {
     constructor(props) {
         super(props);
         this.onDataChangeHandle = this.onDataChangeHandle.bind(this);
+        const obj = {};
+        if (props.model) {
+            props.model.forEach(prop=>{
+                if(prop.available)
+                    obj[prop.name] = null;
+            })
+        }
+        this.setState({...obj})
     }
 
     state = {
@@ -40,30 +48,31 @@ class FormEditorComponent extends React.Component {
      * @param {Array} available - массив допустимых значений.
      * @param {string} label - отображаемое название.
      */
+
     resolveControl(name, type, available= null, label = null) {
-        const value = this.state?.dataItem?.[name];
+        console.log(available)
         if (!!available?.length && type !== FORM_CONTROL_TYPE.OBJECT) {
             return (<DropDownList key={name+type} label={label}
-                                  style={this.baseControlStyle} value={value} data={available}
+                                  style={this.baseControlStyle} value={this.state[name]} data={available}
                                   onChange={  (e)=>this.onDataChangeHandle({...e, name})}>
             </DropDownList>)
         }
         switch (type) {
             case FORM_CONTROL_TYPE.DATE:
-                return (<DatePicker key={name+type} label={label} style={this.baseControlStyle} name={name} value={value} onChange={
+                return (<DatePicker key={name+type} label={label} style={this.baseControlStyle} name={name} value={this.state?.dataItem?.[name]} onChange={
                     (e)=>this.onDataChangeHandle({...e, name})}></DatePicker>);
             case FORM_CONTROL_TYPE.NUMBER:
-                return (<div style={{...this.baseControlStyle, display:'Contents'}}><NumericTextBox className='w-full' key={name+type} label={label} name={name} value={value} onChange={  (e)=>this.onDataChangeHandle({...e, name})}></NumericTextBox></div>);
+                return (<div style={{...this.baseControlStyle, display:'Contents'}}><NumericTextBox className='w-full' key={name+type} label={label} name={name} value={this.state?.dataItem?.[name]} onChange={  (e)=>this.onDataChangeHandle({...e, name})}></NumericTextBox></div>);
             case FORM_CONTROL_TYPE.STRING:
-                return (<Input  key={name+type} label={label} style={this.baseControlStyle} name={name} value={value} onChange={  (e)=>this.onDataChangeHandle({...e, name})}></Input>);
+                return (<Input  key={name+type} label={label} style={this.baseControlStyle} name={name} value={this.state?.dataItem?.[name]} onChange={  (e)=>this.onDataChangeHandle({...e, name})}></Input>);
             case FORM_CONTROL_TYPE.BOOL:
-                return (<Checkbox key={name+type} style={this.baseControlStyle} label={label} name={name} value={value} onChange={  (e)=>this.onDataChangeHandle({...e, name})}></Checkbox>);
+                return (<Checkbox key={name+type} style={this.baseControlStyle} label={label} name={name} value={this.state?.dataItem?.[name]} onChange={  (e)=>this.onDataChangeHandle({...e, name})}></Checkbox>);
             case FORM_CONTROL_TYPE.OBJECT:
                 if (!available || !available?.length){
                     throw new DOMException('Для контрола типа object необходим перечень допустимых объектов.', 'Ошибка в регистрации контрола')
                 }
-                return (<DropDownList textField="name" dataItemKey="ID" key={name+type} label={label}
-                                      style={this.baseControlStyle} value={value} data={available}
+                return (<DropDownList textField="name" dataItemKey="id" key={name+type} label={label}
+                                      style={this.baseControlStyle} value={this.state[name]} data={available}
                                       onChange={  (e)=>this.onDataChangeHandle({...e, name})}>
                 </DropDownList>)
         }
@@ -72,6 +81,7 @@ class FormEditorComponent extends React.Component {
     /** Событие на изменение dataItem, вызывается после onChangeEvent любого контрола */
     onDataChangeHandle(e) {
         if(this.props.onDataChange) {
+            this.setState({[e.name]: e.value})
             this.props.onDataChange(e);
         }
     }

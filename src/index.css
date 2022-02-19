@@ -103,3 +103,11 @@ body>.k-animation-container.k-animation-container-relative{
     height: auto;
     overflow: auto;
 }
+li.k-state-active > .k-link {
+    font-weight:  bold;
+    color: #e2af1e !important;
+}
+li > .k-link {
+    font-weight: 600;
+    color: black !important;
+}
