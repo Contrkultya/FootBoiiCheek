@@ -1,11 +1,9 @@
 import {  useMemo } from 'react'
-import GridTableComponent from "./components/grid-table-component";
 import MultipleTablesComponent from "../../shared/must-be-rework/multiple-tables-component";
 import {TabStrip, TabStripTab} from "@progress/kendo-react-layout"
 import * as React from "react";
 import EditableGridTableComponent from "../../shared/components/editable-grid-table/editable-grid-table-component";
 import {FORM_CONTROL_TYPE, TABLE_VIEW_MODE} from "../../shared/utils/constants";
-import {data} from "autoprefixer";
 
 
 class GameFormComponent extends React.Component {
@@ -38,12 +36,12 @@ class GameFormComponent extends React.Component {
     secondTeamMembers = [];
 
     grids = [{
-        component: (<GridTableComponent key={'start'} columns={this.playerColumns} data={this.firstTeamMembers}></GridTableComponent>),
+        component:(<div></div>), // (<GridTableComponent key={'start'} columns={this.playerColumns} data={this.firstTeamMembers}></GridTableComponent>),
         title: 'К-1',
         cols: 1,
         rows: 1,
     },{
-        component: (<GridTableComponent key={'events'} columns={this.playerColumns} data={this.secondTeamMembers}></GridTableComponent>),
+        component: (<div></div>), // (<GridTableComponent key={'events'} columns={this.playerColumns} data={this.secondTeamMembers}></GridTableComponent>),
         title: 'К-2',
         cols: 1,
         rows: 1,
