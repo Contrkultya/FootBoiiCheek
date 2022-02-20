@@ -20,7 +20,7 @@ class MultipleTablesComponent extends React.Component{
             let iteratorRows = 1;
             const gridStyles = {
                 gridColumnGap: this.props.colMargin + 'px',
-                gridRowGap: '1em',
+                gridRowGap: '3em',
                 gridTemplateColumns:"repeat(" + this.props.columns + ",minmax(10px, 1fr))"}
             // TODO: знатоки React поправьте будет время
             return (
@@ -33,7 +33,7 @@ class MultipleTablesComponent extends React.Component{
                                 iteratorRows++;
                             }
                             const row = "span " + iteratorRows + " / span " + grid.rows;
-                            const col = "span " + iteratorCols + " / span " + grid.cols;
+                            const col = "span " + grid.cols + " / span " + grid.cols;
                             iteratorCols += grid.cols
                             return (
                                 <div key={iteratorRows+"|"+iteratorCols} style={{gridRow: row, gridColumn: col}}>
