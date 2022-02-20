@@ -32,7 +32,7 @@ class MultipleTablesComponent extends React.Component{
                                 iteratorCols = 1
                                 iteratorRows++;
                             }
-                            const row = "span " + iteratorRows + " / span" + grid.rows;
+                            const row = "span " + iteratorRows + " / span " + grid.rows;
                             const col = "span " + iteratorCols + " / span " + grid.cols;
                             iteratorCols += grid.cols
                             return (

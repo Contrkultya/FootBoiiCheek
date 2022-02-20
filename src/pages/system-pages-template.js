@@ -1,8 +1,5 @@
 import * as React from "react";
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-import icon from '../img/Icon.png'
+import { Disclosure, } from '@headlessui/react'
 import {Link} from "react-router-dom";
 
 function classNames(...classes) {

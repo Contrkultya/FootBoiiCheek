@@ -50,7 +50,6 @@ class FormEditorComponent extends React.Component {
      */
 
     resolveControl(name, type, available= null, label = null) {
-        console.log(available)
         if (!!available?.length && type !== FORM_CONTROL_TYPE.OBJECT) {
             return (<DropDownList key={name+type} label={label}
                                   style={this.baseControlStyle} value={this.state[name]} data={available}

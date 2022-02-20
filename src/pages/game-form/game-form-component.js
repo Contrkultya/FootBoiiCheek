@@ -36,16 +36,22 @@ class GameFormComponent extends React.Component {
     secondTeamMembers = [];
 
     grids = [{
-        component:(<div></div>), // (<GridTableComponent key={'start'} columns={this.playerColumns} data={this.firstTeamMembers}></GridTableComponent>),
+        component:(<div style={{height: '400px', width:'400px', backgroundColor:'red'}}></div>), // (<GridTableComponent key={'start'} columns={this.playerColumns} data={this.firstTeamMembers}></GridTableComponent>),
         title: 'К-1',
         cols: 1,
         rows: 1,
     },{
-        component: (<div></div>), // (<GridTableComponent key={'events'} columns={this.playerColumns} data={this.secondTeamMembers}></GridTableComponent>),
+        component: (<div style={{height: '400px', width:'400px', backgroundColor:'green'}}></div>), // (<GridTableComponent key={'events'} columns={this.playerColumns} data={this.secondTeamMembers}></GridTableComponent>),
         title: 'К-2',
         cols: 1,
         rows: 1,
-    }
+    },
+        {
+            component: (<div style={{height: '400px', width:'400px', backgroundColor:'yellow'}}></div>), // (<GridTableComponent key={'events'} columns={this.playerColumns} data={this.secondTeamMembers}></GridTableComponent>),
+            title: 'К-2',
+            cols: 1,
+            rows: 1,
+        }
     ];
 
     eventTableModel = [
