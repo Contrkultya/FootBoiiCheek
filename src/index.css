@@ -31,8 +31,16 @@ body > #root > div {
     @apply bg-white transition duration-150 border border-mustard text-gray-900 rounded-lg outline-none
     focus:ring-yellow-500 focus:ring-2 focus:border-yellow-500 block w-full p-2.5;
 }
-
-
+.icon-block {
+    background-size: cover;
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 3rem;
+    background-image: url("../src/img/Icon.png");
+}
+.yellow-text{
+    color: #e2af1e
+}
 /* Перезапись существующих стилей */
 .k-justify-content-stretch > .btn{
     flex: unset;
