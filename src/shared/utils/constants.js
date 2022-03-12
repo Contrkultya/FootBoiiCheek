@@ -1,3 +1,5 @@
+import moment from "moment";
+
 /** Режим открытия таблицы {@link EditableGridTableComponent}*/
 export const TABLE_VIEW_MODE = Object.freeze({READ:0,CELL_EDIT:1,DIALOG_EDIT:2})
 /** Тип контрола на форме*/
@@ -23,4 +25,9 @@ export const DEEP_CLONE_FUNC = (item) =>{
     }
     else
         return item;
+}
+
+export const transformDate = (textDate) => {
+    const date = moment(textDate)
+    return date.locale('ru').format('DD.MM.YYYY')
 }

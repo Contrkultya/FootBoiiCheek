@@ -27,7 +27,7 @@ import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
  */
 const ComboBox = ({
   items,
-  onSelectChanged,
+  onSelectChanged = () => {},
   selectedItem= null,
   valueProperty=null,
   labelProperty=null,
@@ -61,9 +61,9 @@ const ComboBox = ({
         <div className={className}>
             <Combobox value={selected} onChange={selectChanged}>
                 <div className="relative mt-1">
-                    <div className="relative w-full text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-teal-300 focus-visible:ring-offset-2 sm:text-sm overflow-hidden">
+                    <div className="relative w-full text-left bg-white border-b border-mustard cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-teal-300 focus-visible:ring-offset-2 sm:text-sm overflow-hidden">
                         <Combobox.Input
-                            className="w-full border-none focus:ring-0 focus:outline-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900"
+                            className="w-full border-none focus:ring-0 focus:outline-none py-2 pr-10 text-2xl font-semibold leading-5 text-gray-900"
                             displayValue={(item) => label(item)}
                             onChange={(event) => setQuery(event.target.value)}
                         />
@@ -86,7 +86,7 @@ const ComboBox = ({
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <Combobox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                        <Combobox.Options className="z-30 absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                             {
                                 filteredItems.length === 0 && query !== '' ?
                                     (
