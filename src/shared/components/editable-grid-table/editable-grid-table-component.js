@@ -58,14 +58,14 @@ class EditableGridTableComponent extends React.Component {
 
     onDialogCLose() {
         let newDataState = [];
-        if (this.state.selected?.ID != null) {
-            const index = this.state.data.indexOf(this.state.data.find(i=>i.ID===this.state.selected.ID));
+        if (this.state.selected?.id != null) {
+            const index = this.state.data.indexOf(this.state.data.find(i=>i.id ===this.state.selected.id));
             newDataState = this.state.data;
             newDataState[index] = this.state.selected;
         } else {
             newDataState = [...this.state.data];
             newDataState.unshift({...this.state.selected,
-                ID: guid(),
+                id: guid(),
             });
         }
         this.setState({
@@ -82,8 +82,8 @@ class EditableGridTableComponent extends React.Component {
         this.setState({selected: dataItem});
     }
 
-    hasChanges =()=>{
-        const changes = this.state.data.find(i => typeof(i.ID) !== 'number' || i.prefab != null)
+    hasChanges = () => {
+        const changes = this.state.data.find(i => typeof(i.id) !== 'number' || i.prefab != null)
         this.setState({hasChanges: !!changes})
     }
 
@@ -98,8 +98,8 @@ class EditableGridTableComponent extends React.Component {
     }
     dialogCancel = () =>{
         const newDataState = this.state.data;
-        if (this.state.selected?.ID != null) {
-            const index = this.state.data.indexOf(this.state.data.find(i=>i.ID===this.state.selected.ID));
+        if (this.state.selected?.id != null) {
+            const index = this.state.data.indexOf(this.state.data.find(i=>i.id===this.state.selected.id));
             newDataState[index] = this.state.selected.prefab;
         }
         this.setState({
@@ -140,7 +140,7 @@ class EditableGridTableComponent extends React.Component {
 
             case "save":
                 let index = this.state.data.findIndex(
-                    (item) => item.ID === options.dataItem.ID
+                    (item) => item.id === options.dataItem.id
                 );
                 newDataState[index] = options.dataItem;
                 this.setState({
@@ -213,7 +213,7 @@ class EditableGridTableComponent extends React.Component {
             take={this.state.take}
             total={this.state.data.length}
             pageable={true}
-            dataItemKey={'ID'}
+            dataItemKey={'id'}
             selectedField={'SELECTION_KEY'}
             selectable={{enabled: true,mode:'single'}}
             onSelectionChange={this.onSelectionChange}
@@ -221,7 +221,7 @@ class EditableGridTableComponent extends React.Component {
             data={this.state.data.slice(
                 this.state.skip,
                 this.state.take + this.state.skip
-            ).map(item=> ({...item,SELECTION_KEY: this.state.selected?.ID===item.ID}))}
+            ).map(item=> ({...item,SELECTION_KEY: this.state.selected?.id===item.id}))}
             onPageChange={this.pageChange}>
             {this.props.mode !== TABLE_VIEW_MODE.READ && <GridToolbar>
                 <button key={'add'} onClick={this.onAddClick} className='btn toolbar-btn'>Add</button>

@@ -11,9 +11,6 @@ import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
  *
  * @param {function} onSelectChanged - функция, возвращающая значение, только что выбранное в списке.<p>
  *
- * @param {string, null} valueProperty - название параметра, значение которого нужно вернуть при выборе элемента.
- * Если значние не указано, то звращается весь элемент.<p>
- *
  * @param {string, null} labelProperty - название параметра, значение которого нужно использовать для отображения элемента в списке.
  * Если значение не указано,то используется весь элемент.<p>
  *
@@ -29,7 +26,6 @@ const ComboBox = ({
   items,
   onSelectChanged = () => {},
   selectedItem= null,
-  valueProperty=null,
   labelProperty=null,
   className='',
   components: {
@@ -42,7 +38,7 @@ const ComboBox = ({
 
     const selectChanged = (item) => {
         setSelected(item)
-        onSelectChanged(valueProperty ? item[valueProperty] : item)
+        onSelectChanged(item)
     }
 
     const label = (item) => labelProperty ? item[labelProperty] : item
