@@ -76,6 +76,16 @@ async function getTournamentStage(tournamentId) {
     return data;
 }
 
+export async function getTournamentStageState(tournamentId) {
+    const { data } = await $host.get('/api/tournaments/'+tournamentId+'/stage');
+    return data;
+}
+
+export async function getTournamentTeamsAllocated(tournamentId) {
+    const { data } = await $host.get('/api/tournaments/'+tournamentId+'/participant/allocated');
+    return data;
+}
+
 export {
     getTournamentGroups,
     getTournaments,
