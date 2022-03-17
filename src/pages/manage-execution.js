@@ -1,9 +1,22 @@
-import React  from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate} from 'react-router-dom';
+import {getTournamentStageState, getTournamentTeamsAllocated} from '../api/tournament_api';
 
-const ManageExecution = () => {
-   const history = useNavigate()
-    //насколько я понимаю yes/no должны откуда-то подгружаться, но я хз откуда
+
+const ManageExecution = (props) => {
+    const history = useNavigate();
+    const [teamsAllocated, setTeamsAllocated] = React.useState("");
+    const [stageFinished, setStageFinished] = React.useState([])
+
+    useEffect(async() => {
+        getTournamentTeamsAllocated(props.id).then(data => setTeamsAllocated(data));
+        let stage = await getTournamentStageState(props.id);
+        setStageFinished(stage);
+    }, [])
+
+    const getButton = (onClick = ()=>{}, text) =>{
+        return <button style={{width:"300px"}} onClick={onClick} className="bg-mustard hover:bg-bear text-black font-bold py-2 px-6 flex-1">{text}</button>
+    }
     return (
         <div className='flex text-center mx-auto max-w-6xl mt-12'>
             <div className="font-tahoma mx-auto">
@@ -11,13 +24,13 @@ const ManageExecution = () => {
                     <thead>
                         <tr>
                             <th></th>
-                            <th>&nbsp;&nbsp;&nbsp;Teams alloceted</th> 
+                            <th>&nbsp;&nbsp;&nbsp;Teams allocated</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><button onClick={() => history("/allocate-teams")} className="bg-mustard hover:bg-bear text-black font-bold py-2 min-w-full flex-1">Allocate Teams to Groups...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button></td>
-                            <td><p>yes</p></td>
+                            <td>{getButton(() => history("/allocate-teams"), "Allocate Teams to Groups...")}</td>
+                            <td><p>{teamsAllocated.message}</p></td>
                         </tr>
                     </tbody>
                 </table>
@@ -27,55 +40,52 @@ const ManageExecution = () => {
                             <th></th>
                             <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 Finish
-                            </th> 
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><button onClick={() => history('/manage-games')} className="bg-mustard hover:bg-bear text-black font-bold py-2 min-w-full flex-1">Manage Groups Stage Games...</button></td>
+                            <td>{getButton(() => history('/manage-games'),"Manage Groups Stage Games..." )}</td>
                             <td>
-                                <p>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    yes
+                                <p className="pl-10">
+                                    {stageFinished["Group stage"] === false? "No" : "Yes"}
                                 </p>
                             </td>
-                        </tr>  
+                        </tr>
                         <tr>
-                            <td><button className="bg-mustard hover:bg-bear text-black font-bold py-2 min-w-full flex-1">Manage Round of 16 Games...</button></td>
+                            <td>{getButton(() => history('/'),"Manage Round of 16 Games..." )}</td>
                             <td>
-                                <p>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    yes
+                                <p className="pl-10">
+
+                                    {stageFinished["Round of 16"] === false? "No" : "Yes"}
                                 </p>
                             </td>
-                        </tr>  
+                        </tr>
                         <tr>
-                            <td><button className="bg-mustard hover:bg-bear text-black font-bold py-2 min-w-full flex-1">Manage Quarter-Final Games...</button></td>
+                            <td>{getButton(() => history('/'),"Manage Quarter-Final Games..." )}</td>
                             <td>
-                                <p>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    yes
+                                <p className="pl-10">
+                                    {stageFinished["Quarter final"] === false? "No" : "Yes"}
                                 </p>
                             </td>
-                        </tr>  
+                        </tr>
                         <tr>
-                            <td><button className="bg-mustard hover:bg-bear text-black font-bold py-2 min-w-full flex-1">Manage Semi-Final Games...</button></td>
+                            <td>{getButton(() => history('/'),"Manage Semi-Final Games..." )}</td>
                             <td>
-                                <p>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    yes
+                                <p className="pl-10">
+                                    {stageFinished["Semi-Final"] === false? "No" : "Yes"}
                                 </p>
                             </td>
-                        </tr>  
+                        </tr>
                         <tr>
-                            <td><button className="bg-mustard hover:bg-bear text-black font-bold py-2 min-w-full flex-1">Manage Final Games...</button></td>
+
+                            <td>{getButton(() => history('/'),"Manage Final Games..." )}</td>
                             <td>
-                                <p>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    yes
+                                <p className="pl-10">
+                                    {stageFinished["Final"] === false? "No" : "Yes"}
                                 </p>
                             </td>
-                        </tr>  
+                        </tr>
                     </tbody>
                 </table>
             </div>
