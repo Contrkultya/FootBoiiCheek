@@ -43,16 +43,26 @@ const MainPage = () => {
                     <p className="text-xs">{transformDate(selectedTournament.startDate)} - {transformDate(selectedTournament.endDate)}</p>
                 </div>
             }
-            <div className="p-5 bg-amber-100">
-                {roundGames && <TournamentBracket games={roundGames}/>}
-            </div>
-            <div className="grid grid-cols-3 gap-4">
-                {
-                   groupGames && Object.entries(groupGames).map(([group, games]) =>
-                        <GroupTable group={group} games={games} />
-                   )
-                }
-            </div>
+
+            {
+                groupGames.length > 0 ?
+                <>
+                    <div className="p-5 bg-amber-100">
+                        {roundGames && <TournamentBracket games={roundGames}/>}
+                    </div>
+                    <div className="grid grid-cols-3 gap-4">
+                        {
+                           groupGames && Object.entries(groupGames).map(([group, games]) =>
+                                <GroupTable group={group} games={games} />
+                           )
+                        }
+                    </div>
+                </>
+                    :
+                <div className="bg-amber-100 rounded-lg p-5 text-center">
+                    Игры пока не созданы(
+                </div>
+            }
         </div>
     );
 };
