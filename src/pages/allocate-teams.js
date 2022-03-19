@@ -7,8 +7,10 @@ import MultipleTablesComponent from "../shared/must-be-rework/multiple-tables-co
 import {ListBox, processListBoxDragAndDrop} from "@progress/kendo-react-listbox";
 import {allocateRandomly, getAllGroupsInTournament} from '../api/participant-api'
 import {getTeams} from "../api/teams_api";
+import { useNavigate} from 'react-router-dom';
 
 function AllocateTeams() {
+    const history = useNavigate();
     const tournamentId = 0;
     const [draggedItem, setDraggedItem] = useState([]);
     const [teams, setTeams] = useState([]);
@@ -221,9 +223,9 @@ function AllocateTeams() {
                     </div>
                 </div>
                 <div className="grid grid-cols-4 gap-4 mt-12">
-                    <button className="bg-mustard hover:bg-bear text-black font-bold py-2 col-start-3">Save & Close
+                    <button onClick={() => history('/manage-execution')} className="bg-mustard hover:bg-bear text-black font-bold py-2 col-start-3">Save & Close
                     </button>
-                    <button className="bg-mustard hover:bg-bear text-black font-bold py-2 col-start-4">Close
+                    <button onClick={() => history('/manage-execution')} className="bg-mustard hover:bg-bear text-black font-bold py-2 col-start-4">Close
                     </button>
                 </div>
             </div>
