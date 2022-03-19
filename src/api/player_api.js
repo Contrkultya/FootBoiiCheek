@@ -10,6 +10,12 @@ async function getPlayer(playerId) {
     return data;
 }
 
+async function getAllPositions(teamId) {
+    const { data } = await $host.get(`/api/team/${teamId}/player/positions`)
+    return data
+}
+
+
 async function createPlayer(name, surname, positionId, positionsEnum, shirtNumber, dateOfBirth) {
     // create a new player
     const { data } = await $host.post('/api/player', {

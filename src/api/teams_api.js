@@ -8,17 +8,17 @@ async function getTeams() {
 
 async function getTeam(teamId) {
     // get team data (id, name, pic_url, country, region, flags)
-    const { data } = await $host.get('/api/teams/'+teamId);
+    const { data } = await $host.get('/api/teams/read', {
+        params: {
+            teamId
+        }
+    });
     return data;
 }
 
 async function getTeamPLayers(teamId) {
     // get players of a team specified
-    const { data } = await $host.get('/api/teams/players', {
-        params: {
-            teamId
-        }
-    });
+    const { data } = await $host.get(`/api/teams/${teamId}/player`);
     return data;
 }
 

@@ -99,7 +99,7 @@ class EditableGridTableComponent extends React.Component {
         if (!this.props.editorForm)
             form = (<FormEditorComponent key={'form'} dataItem={this.state.selected} onDataChange={this.upDateItem} model={this.props.model}></FormEditorComponent>)
         else {
-            form = (new this.props.editorForm({dateItem:this.state.selected, onDataChangeChange: this.upDateItem, model: this.props.model})).render();
+            form = (new this.props.editorForm({dateItem:this.state.selected, onDataChange: this.upDateItem, model: this.props.model})).render();
         }
         return form;
     }
@@ -135,14 +135,14 @@ class EditableGridTableComponent extends React.Component {
 
     fetchRecords =  async () => {
         this.setState({await: true});
-            await axios.get(this.props.sourceUrl).then((records) =>
-                this.setState({
-                    data: records.data,
-                    editIndex: undefined,
-                    selected: null,
-                    await: false,
-                })
-            );
+        await axios.get(this.props.sourceUrl).then((records) =>
+            this.setState({
+                data: records.data,
+                editIndex: undefined,
+                selected: null,
+                await: false,
+            })
+        );
     }
 
     onRowAction = (options) => {
@@ -171,7 +171,7 @@ class EditableGridTableComponent extends React.Component {
                     req$.push(req);
                 })
                 Promise.all(req$).then(async ()=> {
-                       await this.fetchRecords();
+                        await this.fetchRecords();
                     }
                 )
                 break;
@@ -235,31 +235,31 @@ class EditableGridTableComponent extends React.Component {
             {this.state.await ? DialogService.await() : null}
             {this.state.dialogOpen ? this.getEditorDialog() : null}
             <Grid
-            className="h-full"
-            skip={this.state.skip}
-            take={this.state.take}
-            total={this.state.data.length}
-            pageable={true}
-            dataItemKey={'id'}
-            selectedField={'SELECTION_KEY'}
-            selectable={{enabled: true,mode:'single'}}
-            onSelectionChange={this.onSelectionChange}
-            navigatable={true}
-            data={this.state.data.slice(
-                this.state.skip,
-                this.state.take + this.state.skip
-            ).map(item=> ({...item,SELECTION_KEY: this.state.selected?.id===item.id}))}
-            onPageChange={this.pageChange}>
-            {this.props.mode !== TABLE_VIEW_MODE.READ && <GridToolbar>
-                <button key={'add'} onClick={this.onAddClick} className='btn toolbar-btn'>Add</button>
-                <button key={'save'} onClick={()=>this.onRowAction({operation:'save'})} disabled={!this.state.hasChanges} className='btn toolbar-btn'>Save</button>
-                <button key={'edit'} onClick={this.edit} disabled={!this.state.selected} className='btn toolbar-btn close'>Edit</button>
-                <button key={'remove'} onClick={this.remove} disabled={!this.state.selected} className='btn toolbar-btn close'>Remove</button>
-            </GridToolbar>}
-            {this.props.columns.map(col=>{
-                return (<GridColumn cell={col?.cell} key={col.field +"|"+col.field} title={col.title} field={col.field} width={col.width ?? 'auto'} ></GridColumn>)
-            })}
-        </Grid>
+                className="h-full"
+                skip={this.state.skip}
+                take={this.state.take}
+                total={this.state.data.length}
+                pageable={true}
+                dataItemKey={'id'}
+                selectedField={'SELECTION_KEY'}
+                selectable={{enabled: true,mode:'single'}}
+                onSelectionChange={this.onSelectionChange}
+                navigatable={true}
+                data={this.state.data.slice(
+                    this.state.skip,
+                    this.state.take + this.state.skip
+                ).map(item=> ({...item,SELECTION_KEY: this.state.selected?.id===item.id}))}
+                onPageChange={this.pageChange}>
+                {this.props.mode !== TABLE_VIEW_MODE.READ && <GridToolbar>
+                    <button key={'add'} onClick={this.onAddClick} className='btn toolbar-btn'>Add</button>
+                    <button key={'save'} onClick={()=>this.onRowAction({operation:'save'})} disabled={!this.state.hasChanges} className='btn toolbar-btn'>Save</button>
+                    <button key={'edit'} onClick={this.edit} disabled={!this.state.selected} className='btn toolbar-btn close'>Edit</button>
+                    <button key={'remove'} onClick={this.remove} disabled={!this.state.selected} className='btn toolbar-btn close'>Remove</button>
+                </GridToolbar>}
+                {this.props.columns.map(col=>{
+                    return (<GridColumn cell={col?.cell} key={col.field +"|"+col.field} title={col.title} field={col.field} width={col.width ?? 'auto'} ></GridColumn>)
+                })}
+            </Grid>
         </div>)
     }
 }
