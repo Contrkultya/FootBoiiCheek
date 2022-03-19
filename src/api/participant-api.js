@@ -1,9 +1,11 @@
 import { $host } from "./index";
 
- async function getAllGroups() {
-    const { data } = await $host.get('/api/groups');
+ async function getAllGroupsInTournament(tournamentId) {
+    const { data } = await $host.get(`api/tournaments/${tournamentId}/participant/groups`, );
     return data;
 }
+
+
 export {
-    getAllGroups
+    getAllGroupsInTournament
 }

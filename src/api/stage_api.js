@@ -25,9 +25,20 @@ async function finishStage(stageId) {
     });
     return data;
 }
+async function getCurrentStageInTournament(tournamentId, stage) {
+    const { data } = await $host.get(`api/tournaments/${tournamentId}/games/stages/${stage}`, );
+    return data;
+}
+
+async function getAllStagesInTournament(tournamentId) {
+    const { data } = await $host.get(`api/tournaments/${tournamentId}/games/stages`, );
+    return data;
+}
 
 export {
     getStage,
     updateStage,
-    finishStage
+    finishStage,
+    getCurrentStageInTournament,
+    getAllStagesInTournament
 }

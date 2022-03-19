@@ -6,13 +6,9 @@ async function getGames() {
     return data;
 }
 
-async function getGame(gameId) {
+async function getGame(tournamentId, gameId) {
     // get game data: players, isStarted, isFinished, events
-    const { data } = await $host.get('/api/game', {
-        params: {
-            gameId
-        }
-    });
+    const { data } = await $host.get(`api/tournaments/${tournamentId}/games/${gameId}`);
     return data;
 }
 
