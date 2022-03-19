@@ -51,7 +51,7 @@ class TeamCustomEditorForm extends React.Component {
     resolveControl(name, type, available= null, label = null) {
         if (!!available?.length && type !== FORM_CONTROL_TYPE.OBJECT) {
             return (<DropDownList key={name+type} label={label}
-                                  style={this.baseControlStyle} value={this.state[name]} data={available}
+                                  style={this.baseControlStyle} value={this.state?.dataItem[name]} data={available}
                                   onChange={  (e)=>this.onDataChangeHandle({...e, name})}>
             </DropDownList>)
         }
