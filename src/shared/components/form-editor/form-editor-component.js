@@ -63,7 +63,19 @@ class FormEditorComponent extends React.Component {
         }
         switch (type) {
             case FORM_CONTROL_TYPE.DATE:
-                return (<DatePicker key={name+type} label={label} style={this.baseControlStyle} name={name} value={new Date(this.state?.dataItem?.[name])} onChange={
+                if(typeof this.state?.dataItem?.[name] === 'string') {
+                    this.setState({
+                        dataItem: {...this.state.dataItem, [name]: new Date(this.state?.dataItem?.[name]) }
+                    })
+                }else {
+                    if (this.state?.dataItem?.[name] == null) {
+                        this.setState({
+                            dataItem: {...this.state.dataItem, [name]: new Date() }
+                        })
+                    }
+                }
+
+                return (<DatePicker key={name+type} label={label} style={this.baseControlStyle} name={name} value={this.state?.dataItem?.[name]} onChange={
                     (e)=>this.onDataChangeHandle({...e, name})}></DatePicker>);
             case FORM_CONTROL_TYPE.NUMBER:
                 return (<div style={{...this.baseControlStyle, display:'Contents'}}><NumericTextBox className='w-full' key={name+type} label={label} name={name} value={this.state?.dataItem?.[name]} onChange={  (e)=>this.onDataChangeHandle({...e, name})}></NumericTextBox></div>);
