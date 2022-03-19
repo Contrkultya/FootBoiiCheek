@@ -22,9 +22,10 @@ const MainPage = () => {
             const {games:loadedTournamentGames} = await getTournament(selectedTournament.id)
 
             console.log(loadedTournamentGames)
-            if (loadedTournamentGames.length > 0) {
-                setGroupGames(loadedTournamentGames.filter(game => game.stage === 'Group stage'))
-                setRoundGames(loadedTournamentGames.filter(game => game.stage !== 'Group stage'))
+            if (loadedTournamentGames) {
+                setGroupGames(loadedTournamentGames.GROUP_STAGE)
+                delete loadedTournamentGames.GROUP_STAGE
+                setRoundGames(loadedTournamentGames)
             }
         }
 

@@ -3,33 +3,37 @@ import {Bracket, RenderSeedProps, RoundProps, Seed, SeedItem, SeedTeam, SingleLi
 
 const TournamentBracket = ({games}) => {
 
-    const roundsNames = ['Round of 16', 'Quarter final', 'Semi-Final', 'Final']
+    const [roundGames, setRoundGames] = useEffect([])
 
     const rounds: RoundProps[] = [
         {
             title: 'Round of 16',
+            group: 'ROUND_OF_16',
             seeds: []
         },
         {
             title: 'Quarter final',
+            group: 'QUARTER_FINAL',
             seeds: []
         },
         {
             title: 'Semi-Final',
+            group: 'SEMI_FINAL',
             seeds: []
         },
         {
             title: 'Final',
+            group: 'FINAL',
             seeds: []
         },
     ]
 
     useEffect(() => {
         let count = 0
-        rounds.map(round => {
+        const rGames:RoundProps[] = rounds.map(round => {
             return {
                 ...round,
-                seeds: games.filter(game => game.stage === game.title).map(game => {
+                seeds: games[round.group].map(game => {
                     return {
                         id:count++,
                         teams:[{name: game.homeTeam.team.name}, {name: game.guestTeam.team.name}],
