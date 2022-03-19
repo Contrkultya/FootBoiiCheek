@@ -5,6 +5,7 @@ import {DEEP_CLONE_FUNC, TABLE_VIEW_MODE} from "../../utils/constants";
 import FormEditorComponent from "../form-editor";
 import DialogService from "../../services/dialog-service";
 import {guid} from "@progress/kendo-react-common";
+import axios from "axios";
 
 /**
  * Редактируемая таблица
@@ -15,8 +16,13 @@ class EditableGridTableComponent extends React.Component {
         super(props)
         this.onDialogCLose = this.onDialogCLose.bind(this);
     }
+    componentDidMount() {
+        if (this.props.sourceUrl !== '')
+            setTimeout(()=>{ this.fetchRecords().then();})
+    }
 
     state = {
+        await: false,
         skip: 0,
         take: 10,
         selected: null,
@@ -26,7 +32,6 @@ class EditableGridTableComponent extends React.Component {
         selectedState: {},
         data: this.props.dataSource
     }
-
 
     pageChange = (event) => {
         this.setState({
@@ -47,6 +52,7 @@ class EditableGridTableComponent extends React.Component {
         model: PropTypes.any,
         /** Компонет формы редактирования */
         editorForm: PropTypes.any,
+        sourceUrl: PropTypes.string,
     }
 
     static defaultProps = {
@@ -54,6 +60,7 @@ class EditableGridTableComponent extends React.Component {
         editorForm: null,
         model: {},
         dataSource: [],
+        sourceUrl: '',
     }
 
     onDialogCLose() {
@@ -126,9 +133,20 @@ class EditableGridTableComponent extends React.Component {
         });
     };
 
+    fetchRecords =  async () => {
+        this.setState({await: true});
+            await axios.get(this.props.sourceUrl).then((records) =>
+                this.setState({
+                    data: records.data,
+                    editIndex: undefined,
+                    selected: null,
+                    await: false,
+                })
+            );
+    }
+
     onRowAction = (options) => {
         const newDataState = [...this.state.data];
-
         switch (options.operation) {
             case "remove":
                 newDataState.splice(options.rowIndex, 1);
@@ -139,15 +157,23 @@ class EditableGridTableComponent extends React.Component {
                 break;
 
             case "save":
-                let index = this.state.data.findIndex(
-                    (item) => item.id === options.dataItem.id
-                );
-                newDataState[index] = options.dataItem;
-                this.setState({
-                    data: newDataState,
-                    editIndex: undefined,
-                    selected: null,
-                });
+                const req$ = [];
+                this.state.data.forEach(record=> {
+                    console.log(typeof record.id)
+                    const endRe = (typeof record.id === 'number' ? record.id : '' );
+                    let req;
+                    if (endRe === '') {
+                        record = {...record, id: null};
+                        req = axios.post(this.props.sourceUrl, record);
+                    }
+                    else
+                        req = axios.put(this.props.sourceUrl + `/${endRe}`, record);
+                    req$.push(req);
+                })
+                Promise.all(req$).then(async ()=> {
+                       await this.fetchRecords();
+                    }
+                )
                 break;
 
             case "add":
@@ -159,16 +185,6 @@ class EditableGridTableComponent extends React.Component {
                 }else {
 
                 }
-                /*
-                newDataState.unshift({
-                    ProductName: "",
-                    [FORM_DATA_INDEX]: options.rowIndex,
-                    [DATA_ITEM_KEY]: guid(),
-                });
-                this.setState({
-                    editIndex: options.rowIndex,
-                });
-                */
                 break;
             case 'edit':
                 if (this.props.mode === TABLE_VIEW_MODE.DIALOG_EDIT) {
@@ -196,8 +212,18 @@ class EditableGridTableComponent extends React.Component {
     }
 
     remove = () => {
-        this.onRowAction({operation: 'remove', rowIndex: this.state.data.indexOf(this.state.selected)})
-        setTimeout(()=>{this.hasChanges()})
+        let id = typeof this.state.selected.id === 'number' ? `/${this.state.selected.id}` : '';
+        if(id ==='') {
+            this.onRowAction({operation: 'remove', rowIndex: this.state.data.indexOf(this.state.selected)})
+            setTimeout(() => {
+                this.hasChanges()
+            })
+        }
+        else {
+            axios.delete(this.props.sourceUrl + id).then(()=>
+                this.fetchRecords().then()
+            )
+        }
     }
 
     onSelectionChange = (e) => {
@@ -206,6 +232,7 @@ class EditableGridTableComponent extends React.Component {
 
     render() {
         return (<div key={'wind'} className='h-full w-full'>
+            {this.state.await ? DialogService.await() : null}
             {this.state.dialogOpen ? this.getEditorDialog() : null}
             <Grid
             className="h-full"
@@ -225,7 +252,7 @@ class EditableGridTableComponent extends React.Component {
             onPageChange={this.pageChange}>
             {this.props.mode !== TABLE_VIEW_MODE.READ && <GridToolbar>
                 <button key={'add'} onClick={this.onAddClick} className='btn toolbar-btn'>Add</button>
-                <button key={'save'} disabled={!this.state.hasChanges} className='btn toolbar-btn'>Save</button>
+                <button key={'save'} onClick={()=>this.onRowAction({operation:'save'})} disabled={!this.state.hasChanges} className='btn toolbar-btn'>Save</button>
                 <button key={'edit'} onClick={this.edit} disabled={!this.state.selected} className='btn toolbar-btn close'>Edit</button>
                 <button key={'remove'} onClick={this.remove} disabled={!this.state.selected} className='btn toolbar-btn close'>Remove</button>
             </GridToolbar>}
