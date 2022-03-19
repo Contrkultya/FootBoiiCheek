@@ -1,19 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate} from 'react-router-dom';
-import {getTournamentStageState, getTournamentTeamsAllocated} from '../api/tournament_api';
+import {getTournamentStageState, getTournamentTeamsAllocated, getTournament} from '../api/tournament_api';
 
 
 const ManageExecution = (props) => {
     const history = useNavigate();
     const [teamsAllocated, setTeamsAllocated] = React.useState("");
-    const [stageFinished, setStageFinished] = React.useState([])
+    const [stageFinished, setStageFinished] = React.useState([]);
+    const [tournName, setTournName] = React.useState([])
 
     useEffect(async() => {
-        getTournamentTeamsAllocated(props.id).then(data => setTeamsAllocated(data));
-        let stage = await getTournamentStageState(props.id);
+        getTournamentTeamsAllocated(3).then(data => setTeamsAllocated(data));
+        let name = await getTournament(3);
+        setTournName(name);
+        let stage = await getTournamentStageState(3);
         setStageFinished(stage);
     }, [])
-
+    console.log(tournName.name)
     const buttons = [
         {id: 1, name: "Manage Groups Stage Games", value: "Group stage"},
         {id: 2, name: "Manage Round of 16 Games", value: "Round of 16"},
@@ -27,7 +30,7 @@ const ManageExecution = (props) => {
     }
     return (
         <div className='max-w-2xl  mx-auto font-tahoma p-12'>
-            <p className="text-lg mb-8 font-bold">Manage Execution</p>
+            <p className="text-lg mb-8 font-bold">Manage Execution of {tournName.name}</p>
 
             <div className="flex flex-col">
                 <div className="grid grid-cols-2 pb-3">
