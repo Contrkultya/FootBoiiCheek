@@ -257,7 +257,7 @@ class EditableGridTableComponent extends React.Component {
                 <button key={'remove'} onClick={this.remove} disabled={!this.state.selected} className='btn toolbar-btn close'>Remove</button>
             </GridToolbar>}
             {this.props.columns.map(col=>{
-                return (<GridColumn key={col.field +"|"+col.field} title={col.title} field={col.field} width={col.width ?? 'auto'} ></GridColumn>)
+                return (<GridColumn cell={col?.cell} key={col.field +"|"+col.field} title={col.title} field={col.field} width={col.width ?? 'auto'} ></GridColumn>)
             })}
         </Grid>
         </div>)
@@ -265,3 +265,4 @@ class EditableGridTableComponent extends React.Component {
 }
 
 export default EditableGridTableComponent;
+

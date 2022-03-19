@@ -32,7 +32,7 @@ const MainPage = () => {
     }, [selectedTournament])
 
     return (
-        <div className="flex flex-col space-y-10 overflow-y-scroll">
+        <div className="flex flex-col space-y-10 pb-10">
             {tournaments.length > 0 && selectedTournament &&
                 <div className="space-y-2">
                     <ComboBox items={tournaments}
@@ -43,17 +43,26 @@ const MainPage = () => {
                     <p className="text-xs">{transformDate(selectedTournament.startDate)} - {transformDate(selectedTournament.endDate)}</p>
                 </div>
             }
-            {roundGames && <TournamentBracket games={roundGames}/>}
-            <div className="grid grid-cols-3 gap-4">
-                {
-                   groupGames && ['A', 'B', 'C', 'D', 'E', 'F'].map(group =>
-                        <GroupTable group={group} games={groupGames.map(game => game.homeTeam.group === group)} />
-                    )
-                }
-            </div>
-            <div>
 
-            </div>
+            {
+                groupGames.length > 0 ?
+                <>
+                    <div className="p-5 bg-amber-100">
+                        {roundGames && <TournamentBracket games={roundGames}/>}
+                    </div>
+                    <div className="grid grid-cols-3 gap-4">
+                        {
+                           groupGames && Object.entries(groupGames).map(([group, games]) =>
+                                <GroupTable group={group} games={games} />
+                           )
+                        }
+                    </div>
+                </>
+                    :
+                <div className="bg-amber-100 rounded-lg p-5 text-center">
+                    Игры пока не созданы(
+                </div>
+            }
         </div>
     );
 };

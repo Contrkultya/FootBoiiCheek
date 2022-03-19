@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Bracket, RenderSeedProps, RoundProps, Seed, SeedItem, SeedTeam, SingleLineSeed} from "react-brackets";
 
 const TournamentBracket = ({games}) => {
 
-    const [roundGames, setRoundGames] = useEffect([])
+    const [roundGames, setRoundGames] = useState([])
 
     const rounds: RoundProps[] = [
         {
@@ -41,6 +41,7 @@ const TournamentBracket = ({games}) => {
                 })
             }
         })
+        setRoundGames(rGames)
     }, [games])
 
 
@@ -70,7 +71,14 @@ const TournamentBracket = ({games}) => {
     };
 
     return (
-        <Bracket rounds={rounds} renderSeedComponent={CustomSeed}  bracketClassName="justify-center"/>
+        <>
+            {
+                roundGames && <Bracket rounds={roundGames}
+                                       renderSeedComponent={CustomSeed}
+                                       bracketClassName="justify-center"
+                                       roundClassName="border-r border-dotted border-mustard"/>
+            }
+        </>
     );
 };
 

@@ -16,7 +16,6 @@ const ManageTournaments = () => {
     return (
         <>
             <div className="h-full">
-                {tournaments.length > 0 &&
                 <EditableGridTableComponent
                     columns={[
                         {field: 'id', title: 'ID'},
@@ -33,7 +32,6 @@ const ManageTournaments = () => {
                             {name: 'startDate', type: FORM_CONTROL_TYPE.DATE, available: []},
                         ]
                     }/>
-                }
             </div>
         </>
     );
