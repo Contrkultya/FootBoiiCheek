@@ -31,7 +31,6 @@ const ManageTeams = () => {
                 ]}
                 dataSource={teams}
                 sourceUrl={$host.defaults.baseURL+'/api/teams/'}
-                editorForm={TeamCustomEditorForm}
                 model={
                     [
                         {name: 'name', type: FORM_CONTROL_TYPE.STRING, available:[], label: 'Название команды'},
