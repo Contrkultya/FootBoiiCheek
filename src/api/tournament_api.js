@@ -18,19 +18,19 @@ async function getTournaments() {
 
 async function getTournamentStages() {
     // stagesJSON
-    const { data } = await $host.get('/api/tournament/stages');
+    const { data } = await $host.get('/api/tournaments/stages');
     return data;
 }
 
 async function getTournament(tournamentId) {
     // get tournament start, end date, name, teams
-    const { data } = await $host.get(`/api/tournament/${tournamentId}`);
+    const { data } = await $host.get(`/api/tournaments/${tournamentId}`);
     return data;
 }
 
 async function addTournament(name, startDate, endDate, teams) {
     // create a new tournament
-    const { data } = await $host.post('/api/tournament/add', {
+    const { data } = await $host.post('/api/tournaments/add', {
         name, startDate, endDate, teams
     });
     return data;
@@ -38,7 +38,7 @@ async function addTournament(name, startDate, endDate, teams) {
 
 async function updateTournament(name, startDate, endDate, teams) {
     // update a tournament, don't forget to check for nulls or smth on the back
-    const { data } = await $host.put('/api/tournament/update', {
+    const { data } = await $host.put('/api/tournaments/update', {
         name, startDate, endDate, teams
     });
     return data;
@@ -46,7 +46,7 @@ async function updateTournament(name, startDate, endDate, teams) {
 
 async function deleteTeamFromTournament(teamId, tournamentId) {
     // remove a team from the tournament
-    const { data } = await $host.delete('/api/tournament/deleteTeam', {
+    const { data } = await $host.delete('/api/tournaments/deleteTeam', {
         params: {
             teamId, tournamentId
         }
@@ -55,7 +55,7 @@ async function deleteTeamFromTournament(teamId, tournamentId) {
 }
 
 async function getTournamentState(tournamentId) {
-    const { data } = await $host.get('/api/tournament/state', {
+    const { data } = await $host.get('/api/tournaments/state', {
         params: {
             tournamentId
         }
@@ -64,12 +64,12 @@ async function getTournamentState(tournamentId) {
 }
 
 async function getTournamentGames(tournamentId) {
-    const { data } = await $host.get(`/api/tournament/${tournamentId}/games`);
+    const { data } = await $host.get(`/api/tournaments/${tournamentId}/games`);
     return data;
 }
 
 async function getTournamentStage(tournamentId) {
-    const { data } = await $host.get('/api/tournament/stage', {
+    const { data } = await $host.get('/api/tournaments/stage', {
         params: {
             tournamentId
         }

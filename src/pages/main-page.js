@@ -14,16 +14,18 @@ const MainPage = () => {
         const loadedTournaments = await getTournaments()
         setTournaments(loadedTournaments)
         setSelectedTournament(loadedTournaments[0])
-        const loadedTournamentGames = await getTournament(loadedTournaments[0])
+        const loadedTournamentGames = await getTournament(loadedTournaments[0].id)
     }, [])
 
     useEffect(async () => {
-        const loadedTournamentGames = await getTournament(selectedTournament.id)
+        if(selectedTournament) {
+            const {games:loadedTournamentGames} = await getTournament(selectedTournament.id)
 
-        if(loadedTournamentGames.length > 0)
-        {
-            setGroupGames(loadedTournamentGames.filter(game => game.stage === 'Group stage'))
-            setRoundGames(loadedTournamentGames.filter(game => game.stage !== 'Group stage'))
+            console.log(loadedTournamentGames)
+            if (loadedTournamentGames.length > 0) {
+                setGroupGames(loadedTournamentGames.filter(game => game.stage === 'Group stage'))
+                setRoundGames(loadedTournamentGames.filter(game => game.stage !== 'Group stage'))
+            }
         }
 
     }, [selectedTournament])
@@ -40,10 +42,10 @@ const MainPage = () => {
                     <p className="text-xs">{transformDate(selectedTournament.startDate)} - {transformDate(selectedTournament.endDate)}</p>
                 </div>
             }
-            <TournamentBracket games={roundGames}/>
+            {roundGames && <TournamentBracket games={roundGames}/>}
             <div className="grid grid-cols-3 gap-4">
                 {
-                    ['A', 'B', 'C', 'D', 'E', 'F'].map(group =>
+                   groupGames && ['A', 'B', 'C', 'D', 'E', 'F'].map(group =>
                         <GroupTable group={group} games={groupGames.map(game => game.homeTeam.group === group)} />
                     )
                 }
