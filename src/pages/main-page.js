@@ -32,7 +32,7 @@ const MainPage = () => {
     }, [selectedTournament])
 
     return (
-        <div className="flex flex-col space-y-10">
+        <div className="flex flex-col space-y-10 pb-10">
             {tournaments.length > 0 && selectedTournament &&
                 <div className="space-y-2">
                     <ComboBox items={tournaments}
