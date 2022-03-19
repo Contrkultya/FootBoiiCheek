@@ -14,80 +14,39 @@ const ManageExecution = (props) => {
         setStageFinished(stage);
     }, [])
 
+    const buttons = [
+        {id: 1, name: "Manage Groups Stage Games", value: "Group stage"},
+        {id: 2, name: "Manage Round of 16 Games", value: "Round of 16"},
+        {id: 3, name: "Manage Quarter-Final Games", value: "Quarter final"},
+        {id: 4, name: "Manage Semi-Final Games", value: "Semi-Final"},
+        {id: 5, name: "Manage Final Games", value: "Final"},
+    ]
+
     const getButton = (onClick = ()=>{}, text) =>{
-        return <button style={{width:"300px"}} onClick={onClick} className="bg-mustard hover:bg-bear text-black font-bold py-2 px-6 flex-1">{text}</button>
+        return <button onClick={onClick} className="bg-mustard hover:bg-bear text-black font-bold h-10">{text}</button>
     }
     return (
-        <div className='flex text-center mx-auto max-w-6xl mt-12'>
-            <div className="font-tahoma mx-auto">
-                <table>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>&nbsp;&nbsp;&nbsp;Teams allocated</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{getButton(() => history("/allocate-teams"), "Allocate Teams to Groups...")}</td>
-                            <td><p>{teamsAllocated.message}</p></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                Finish
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{getButton(() => history('/manage-games'),"Manage Groups Stage Games..." )}</td>
-                            <td>
-                                <p className="pl-10">
-                                    {stageFinished["Group stage"] === false? "No" : "Yes"}
-                                </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{getButton(() => history('/'),"Manage Round of 16 Games..." )}</td>
-                            <td>
-                                <p className="pl-10">
+        <div className='max-w-2xl  mx-auto font-tahoma p-12'>
+            <p className="text-lg mb-8 font-bold">Manage Execution</p>
 
-                                    {stageFinished["Round of 16"] === false? "No" : "Yes"}
-                                </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{getButton(() => history('/'),"Manage Quarter-Final Games..." )}</td>
-                            <td>
-                                <p className="pl-10">
-                                    {stageFinished["Quarter final"] === false? "No" : "Yes"}
-                                </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{getButton(() => history('/'),"Manage Semi-Final Games..." )}</td>
-                            <td>
-                                <p className="pl-10">
-                                    {stageFinished["Semi-Final"] === false? "No" : "Yes"}
-                                </p>
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <td>{getButton(() => history('/'),"Manage Final Games..." )}</td>
-                            <td>
-                                <p className="pl-10">
-                                    {stageFinished["Final"] === false? "No" : "Yes"}
-                                </p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div className="flex flex-col">
+                <div className="grid grid-cols-2 pb-3">
+                    <div className="col-start-2 col-end-3 font-bold font-bold text-center">Teams allocated</div>
+                </div>
+                <div className="grid grid-cols-2 pb-3">
+                    {getButton(() => history("/allocate-teams"), "Allocate Teams to Group")}
+                    <div className="font-bold text-center align-middle"> {teamsAllocated.message} </div>
+                </div>
+                <div className="grid grid-cols-2 pb-3">
+                    <div className="col-start-2 col-end-3 font-bold font-bold text-center">Finished</div>
+                </div>
+                {
+                    buttons.map(data =>
+                        <div className="grid grid-cols-2 pb-3">
+                            {getButton(() => history("/manage-games/"+data.id), data.name)}
+                            <div className="font-bold text-center align-middle "> {stageFinished[data.value] === false? "No" : "Yes"} </div>
+                        </div>
+                    )}
             </div>
         </div>
     );

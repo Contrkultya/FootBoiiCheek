@@ -1,13 +1,43 @@
-import React, { useMemo, useState }  from 'react';
-import { useNavigate } from 'react-router-dom';
-import Table from '../components/table';
+import React, {useEffect, useMemo, useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
+import {getAllGroups} from "../api/participant-api"
+import {getGame} from "../api/games_api";
 
 
-const ManageGames = ({button}) => {
-   const history = useNavigate()
-   const [game, setGames] = useState("A")
+const ManageGames = () => {
+   const history = useNavigate();
+   let {id} = useParams();
+   const [groups, setGroups] = useState([]);
+   const [currentGroup, setCurrentGroup] = useState('');
+   const [games, setGames] = useState([]);
+
+    const buttons = [
+        {id: 0, name: "Allocate Teams to Group", value: "Group stage"},
+        {id: 1, name: "Manage Groups Stage Games", value: "Group stage"},
+        {id: 2, name: "Manage Round of 16 Games", value: "Round of 16"},
+        {id: 3, name: "Manage Quarter-Final Games", value: "Quarter final"},
+        {id: 4, name: "Manage Semi-Final Games", value: "Semi-Final"},
+        {id: 5, name: "Manage Final Games", value: "Final"},
+    ];
+
+    useEffect(async () => {
+        //const groups = await getAllGroups();
+        //const game = await getGame(1)
+        setGroups(groupsSample)
+        setGames(A)
+    },[]);
+
+    const groupsSample = [
+        {value: "A", name: "Group A"},
+        {value: "B", name: "Group B"},
+        {value: "C", name: "Group C"},
+        {value: "D", name: "Group D"},
+        {value: "E", name: "Group E"},
+        {value: "F", name: "Group F"},
+    ]
+
     const A = [
-       
+
         {
             games: "France - Romania",
             result: "2:1",
@@ -30,69 +60,43 @@ const ManageGames = ({button}) => {
         },
     ];
 
-    const B = [
-       
-        {
-            games: "France - Romania",
-            result: "2:1",
-        },
-        {
-            games: "France - Romania",
-            result: "2:1",
-        },
-        {
-            games: "France - Romania",
-            result: "2:1",
-        },
-        {
-            games: "France - Romania",
-            result: "2:1",
-        },
-        {
-            games: "France - Romania",
-            result: "2:1",
-        },
-    ];
+    const onFinish = () =>{
+
+    }
 
     return (
       <div>
           <div className="max-w-xl mx-auto font-tahoma p-12">
+              <p className="text-lg mb-8 font-bold">{buttons[id].name}</p>
             <div className="flex flex-col space-y-12">
+                {id === "1"?
                 <div className="flex space-x-12">
-                    <select onChange={e => setGames(e.target.value)} className='border-solid border-2 border-black py-2 px-2 pr-16'>
-                    <option selected value="A">Group A</option>
-                    <option value="B">Group B</option>
-                    <option value="C">Group C</option>
-                    <option value="D">Group D</option>
-                    <option value="E">Group E</option>
-                    <option value="F">Group F</option>
+                    <select onChange={e => setCurrentGroup(e.target.value)} className='border-solid border-2 border-black py-2 px-2 pr-16'>
+                        {groups.map(data =>
+                            <option value={data.value}>{data.name}</option>
+                        )}
                     </select>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th className='text-left'>Games</th>
-                            <th>Result</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {A.map((group, i) => (
-                        <tr key={i}>
-                        <td>{group.games}</td>
-                        <td className='text-center'>{group.result}</td>
-                        <td>
-                            {" "}
-                            <button className='bg-mustard hover:bg-bear text-black font-bold py-2 flex-1' value ={group.games}>
-                            Edit...
+                </div>:null}
+
+                <div className="flex flex-col">
+                    <div className="grid grid-cols-3 gap-4">
+                        <p className="text font-bold grow">Games</p>
+                        <p className="text font-bold text-center">Result</p>
+                    </div>
+
+                    {games.map(data =>
+                        <div className="grid grid-cols-3 gap-4 my-2">
+                            <p className="text grow ">{data.games}</p>
+                            <p className="text text-center">{data.result}</p>
+                            <button className='bg-mustard hover:bg-bear text-black font-bold h-10' value={data.games}>
+                                Edit
                             </button>
-                        </td>
-                        </tr>
-                        ))}
-                    </tbody>
-              </table>
+                        </div>
+                    )}
+                </div>
+
               <div className="w-full flex justify-between mt-12 space-x-12">
-                <button className="bg-mustard hover:bg-bear text-black font-bold py-2 flex-1">Finish {button}</button>
+                <button className="bg-mustard hover:bg-bear text-black font-bold py-2 flex-1" onClick={onFinish} value={buttons[id].id}>Finish {buttons[id].value}</button>
                 <button onClick={() => history('/manage-execution')} className="bg-mustard hover:bg-bear text-black font-bold py-2 flex-1">Close</button>
             </div>
             </div>

@@ -21,6 +21,7 @@
     "@progress/kendo-react-layout": "^5.0.1",
     "@progress/kendo-react-listbox": "^5.1.0",
     "@progress/kendo-react-progressbars": "^5.0.1",
+    "@progress/kendo-react-treeview": "^5.0.1",
     "@progress/kendo-theme-default": "^5.1.1",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
