@@ -24,11 +24,7 @@ async function getTournamentStages() {
 
 async function getTournament(tournamentId) {
     // get tournament start, end date, name, teams
-    const { data } = await $host.get('/api/tournament/read', {
-        params: {
-            tournamentId
-        }
-    });
+    const { data } = await $host.get(`/api/tournament/${tournamentId}`);
     return data;
 }
 
@@ -67,6 +63,11 @@ async function getTournamentState(tournamentId) {
     return data;
 }
 
+async function getTournamentGames(tournamentId) {
+    const { data } = await $host.get(`/api/tournament/${tournamentId}/games`);
+    return data;
+}
+
 async function getTournamentStage(tournamentId) {
     const { data } = await $host.get('/api/tournament/stage', {
         params: {
@@ -95,5 +96,6 @@ export {
     updateTournament,
     deleteTeamFromTournament,
     getTournamentState,
-    getTournamentStage
+    getTournamentStage,
+    getTournamentGames
 }

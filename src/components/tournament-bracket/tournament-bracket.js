@@ -1,53 +1,46 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Bracket, RenderSeedProps, RoundProps, Seed, SeedItem, SeedTeam, SingleLineSeed} from "react-brackets";
 
-const TournamentBracket = () => {
+const TournamentBracket = ({games}) => {
+
+    const roundsNames = ['Round of 16', 'Quarter final', 'Semi-Final', 'Final']
+
     const rounds: RoundProps[] = [
         {
-            title: 'Round one',
-            seeds: [
-                {
-                    id: 1,
-                    date: new Date().toDateString(),
-                    teams: [{ name: 'Team A' }, { name: 'Team B' }],
-                },
-                {
-                    id: 2,
-                    date: new Date().toDateString(),
-                    teams: [{ name: 'Team C' }, { name: 'Team D' }],
-                },
-            ],
+            title: 'Round of 16',
+            seeds: []
         },
         {
-            title: 'Round one',
-            seeds: [
-                {
-                    id: 4,
-                    date: new Date().toDateString(),
-                    teams: [{ name: 'Team A' }, { name: 'Team C' }],
-                },
-                {
-                    id: 5,
-                    date: new Date().toDateString(),
-                    teams: [{ name: 'Team E' }, { name: 'Team M' }],
-                }
-            ],
+            title: 'Quarter final',
+            seeds: []
         },
         {
-            title: 'Round three',
-            seeds: [
-                {
-                    id: 6,
-                    date: new Date().toDateString(),
-                    teams: [{ name: 'Team M' }, { name: 'Team C' }],
-                },
-            ],
+            title: 'Semi-Final',
+            seeds: []
         },
-    ];
+        {
+            title: 'Final',
+            seeds: []
+        },
+    ]
+
+    useEffect(() => {
+        let count = 0
+        rounds.map(round => {
+            return {
+                ...round,
+                seeds: games.filter(game => game.stage === game.title).map(game => {
+                    return {
+                        id:count++,
+                        teams:[{name: game.homeTeam.team.name}, {name: game.guestTeam.team.name}],
+                        winner: game.finished ? game.homeTeamResult > game.guestTeamResult ? 0 : 1 : null}
+                })
+            }
+        })
+    }, [games])
+
 
     const CustomSeed = ({seed, breakpoint, roundIndex, seedIndex}: RenderSeedProps) => {
-        // ------ assuming rounds is the losers brackets rounds ------
-        // losers rounds usually got some identical seeds amount like (2 - 2 - 1 - 1)
 
         const isLineConnector = rounds[roundIndex].seeds.length === rounds[roundIndex + 1]?.seeds.length;
 
@@ -58,8 +51,14 @@ const TournamentBracket = () => {
             <Wrapper mobileBreakpoint={breakpoint} style={{ fontSize: 18 }}>
                 <SeedItem>
                     <div className="bg-white text-gray-900">
-                        <SeedTeam className="bg-mustard text-white">{seed.teams[0]?.name || 'NO TEAM '}</SeedTeam>
-                        <SeedTeam>{seed.teams[1]?.name || 'NO TEAM '}</SeedTeam>
+                        {
+                            seed.teams.map((team, index) =>
+                                <SeedTeam
+                                    className={`${ seed.winner !== null && seed.winner === index && 'bg-mustard text-white'}`}>
+                                    {team.name || 'Нет команды'}
+                                </SeedTeam>
+                            )
+                        }
                     </div>
                 </SeedItem>
             </Wrapper>
