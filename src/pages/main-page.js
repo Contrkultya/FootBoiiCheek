@@ -33,19 +33,19 @@ const MainPage = () => {
 
     return (
         <div className="flex flex-col space-y-10 pb-10">
-            {tournaments.length > 0 && selectedTournament &&
-                <div className="space-y-2">
-                    <ComboBox items={tournaments}
-                              selectedItem={selectedTournament}
-                              valueProperty="id"
-                              labelProperty="name"
-                              onSelectChanged={(item) => setSelectedTournament(item)}/>
-                    <p className="text-xs">{transformDate(selectedTournament.startDate)} - {transformDate(selectedTournament.endDate)}</p>
-                </div>
+            {tournaments && tournaments.length > 0 && selectedTournament &&
+            <div className="space-y-2">
+                <ComboBox items={tournaments}
+                          selectedItem={selectedTournament}
+                          valueProperty="id"
+                          labelProperty="name"
+                          onSelectChanged={(item) => setSelectedTournament(item)}/>
+                <p className="text-xs">{transformDate(selectedTournament.startDate)} - {transformDate(selectedTournament.endDate)}</p>
+            </div>
             }
 
             {
-                groupGames.length > 0 ?
+                groupGames ?
                 <>
                     <div className="p-5 bg-amber-100">
                         {roundGames && <TournamentBracket games={roundGames}/>}
