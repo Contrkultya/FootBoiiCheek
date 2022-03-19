@@ -115,8 +115,8 @@ export class SystemPagesTemplate extends React.Component {
                             <h1 className="text-3xl font-bold text-gray-900">{this.getCurrent()?.name}</h1>
                         </div>
                     </header>
-                    <main className='h-4/5'>
-                        <div className="h-full max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+                    <main className='h-full overflow-y-scroll'>
+                        <div className="h-4/5 max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
                             {this.props.children}
                         </div>
                     </main>

@@ -73,7 +73,10 @@ const TournamentBracket = ({games}) => {
     return (
         <>
             {
-                roundGames && <Bracket rounds={roundGames} renderSeedComponent={CustomSeed}  bracketClassName="justify-center"/>
+                roundGames && <Bracket rounds={roundGames}
+                                       renderSeedComponent={CustomSeed}
+                                       bracketClassName="justify-center"
+                                       roundClassName="border border-r border-dotted border-mustard"/>
             }
         </>
     );

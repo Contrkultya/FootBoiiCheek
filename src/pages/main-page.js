@@ -32,7 +32,7 @@ const MainPage = () => {
     }, [selectedTournament])
 
     return (
-        <div className="flex flex-col space-y-10 overflow-y-scroll">
+        <div className="flex flex-col space-y-10">
             {tournaments.length > 0 && selectedTournament &&
                 <div className="space-y-2">
                     <ComboBox items={tournaments}
@@ -43,16 +43,15 @@ const MainPage = () => {
                     <p className="text-xs">{transformDate(selectedTournament.startDate)} - {transformDate(selectedTournament.endDate)}</p>
                 </div>
             }
-            {roundGames && <TournamentBracket games={roundGames}/>}
+            <div className="p-5 bg-amber-100">
+                {roundGames && <TournamentBracket games={roundGames}/>}
+            </div>
             <div className="grid grid-cols-3 gap-4">
                 {
                    groupGames && Object.entries(groupGames).map(([group, games]) =>
                         <GroupTable group={group} games={games} />
-                    )
+                   )
                 }
-            </div>
-            <div>
-
             </div>
         </div>
     );
