@@ -6,6 +6,7 @@ import EditTournaments from "../pages/modals_add_edit_tournaments/index_edit";
 import EditableGridTableComponent from "../shared/components/editable-grid-table";
 import {getTournaments} from "../api/tournament_api";
 import {FORM_CONTROL_TYPE, transformDate} from "../shared/utils/constants";
+import {$host} from "../api";
 
 const ManageTournaments = () => {
 
@@ -58,11 +59,12 @@ const ManageTournaments = () => {
 
     return (
         <>
-            <div className="">
+            <div className="h-full">
                 {tournaments.length > 0 &&
                 <EditableGridTableComponent
                     columns={[{field: 'id', title: 'ID'},{field: 'name', title: 'Tournament'}, {field: 'period', title: 'Period'}]}
                     dataSource={tournaments}
+                    sourceUrl={$host.defaults.baseURL+'/api/tournaments/'}
                     model={
                         [
                             {name: 'name', type: FORM_CONTROL_TYPE.STRING, available:[]},
