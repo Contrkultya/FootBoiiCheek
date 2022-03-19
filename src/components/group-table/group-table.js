@@ -9,9 +9,17 @@ const GroupTable = ({group, games}) => {
                     games.map((game, index) => (
                         <>
                             <div className="w-full flex justify-between rounded-lg py-2 px-4 items-center font-semibold">
-                                <div className="text-center flex-grow bg-mustard text-white rounded py-1">{ game.homeTeam.team.name }</div>
+                                <div
+                                    className={`text-center flex-grow py-1 
+                                    ${game.homeTeamResult > game.guestTeamResult && 'bg-mustard text-white rounded'}`}>
+                                    { game.homeTeam.team.name }
+                                </div>
                                 <div className="w-1/5 text-center">{ game.started ? `${game.homeTeamResult} - ${game.guestTeamResult}` : ' - '}</div>
-                                <div className="text-center flex-grow py-1">{ game.guestTeam.team.name }</div>
+                                <div
+                                    className={`text-center flex-grow py-1 
+                                    ${game.homeTeamResult < game.guestTeamResult && 'bg-mustard text-white rounded'}`}>
+                                    { game.guestTeam.team.name }
+                                </div>
                             </div>
                             {
                                 index === games.length - 1 && <hr className="border-b border-b-mustard w-full"/>

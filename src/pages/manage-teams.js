@@ -1,56 +1,39 @@
-import React, {useMemo}  from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import Table from "../components/table";
+import {getTeams} from "../api/teams_api";
+import EditableGridTableComponent from "../shared/components/editable-grid-table";
+import {$host} from "../api";
+import {FORM_CONTROL_TYPE} from "../shared/utils/constants";
 
 const ManageTeams = () => {
-    const data = [
-        {
-            id: 1,
-            price: 500,
-            title: 'juice'
-        },
-        {
-            id: 2,
-            price: 700,
-            title: 'potato'
-        },
-        {
-            id: 3,
-            price: 1000,
-            title: 'cucumber'
-        }
-    ];
 
-    const columns = useMemo(() => ([
-        {
-            Header: 'ID',
-            accessor: 'id'
-        },
-        {
-            Header: 'Price',
-            accessor: 'price'
-        },
-        {
-            Header: 'Title',
-            accessor: 'title'
-        }
-    ]), []);
+    const [teams, setTeams] = useState([]);
+    useEffect(async () => {
+        const loadedTeams = await getTeams()
+        setTeams(loadedTeams)
+    }, [])
 
     return (
-        <div className="max-w-6xl mx-auto font-tahoma p-12">
-            <div className="flex flex-col space-y-12">
-                <div className="flex space-x-12">
-                    <span className="py-2">Search Team</span>
-                    <input type="text" className="border-solid border-2 border-black py-2 px-2 pr-16"/>
-                </div>
-                <Table columns={columns} data={data}/>
+        <>
+            <div className="h-full">
+                <EditableGridTableComponent
+                    columns={[
+                        {field: 'id', title: 'ID'},
+                        {field: 'flag', title: 'Флаг'},
+                        {field: 'name', title: 'Команда'},
+                        {field: 'countryCode', title: 'Код'}
+                    ]}
+                    dataSource={teams}
+                    sourceUrl={$host.defaults.baseURL+'/api/teams/'}
+                    model={
+                        [
+                            {name: 'name', type: FORM_CONTROL_TYPE.STRING, available:[]},
+                            {name: 'flag', type: FORM_CONTROL_TYPE.STRING, available: []},
+                            {name: 'countryCode', type: FORM_CONTROL_TYPE.STRING, available: []},
+                        ]
+                    }/>
             </div>
-            <div className="w-full flex justify-between mt-12 space-x-12">
-                <button className="bg-mustard hover:bg-bear text-black font-bold py-2 flex-1">Add</button>
-                <button className="bg-mustard hover:bg-bear text-black font-bold py-2 flex-1">Edit</button>
-                <button className="bg-mustard hover:bg-bear text-black font-bold py-2 flex-1">Delete</button>
-                <button className="bg-mustard hover:bg-bear text-black font-bold py-2 flex-1">Close</button>
-            </div>
-        </div>
+        </>
     );
 };
 
