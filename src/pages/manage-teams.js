@@ -8,6 +8,7 @@ import {getCurrentStageInTournament} from "../api/stage_api";
 
 const ManageTeams = () => {
 
+    const history = useNavigate();
     const [teams, setTeams] = useState([]);
     const [flags, setFlags] = useState([]);
     useEffect(async () => {
@@ -25,6 +26,11 @@ const ManageTeams = () => {
 
     return (
         <div className="h-full">
+            <div className="w-full flex justify-between mt-12 space-x-12">
+                        <button onClick={() => history('/add-edit-player')}
+                                className="bg-mustard hover:bg-bear text-black font-bold py-2 flex-1">Edit Teams
+                        </button>
+            </div>
             <EditableGridTableComponent
                 columns={[
                     {field: 'id', title: 'ID'},

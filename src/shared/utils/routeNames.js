@@ -1,6 +1,7 @@
 export const MAIN_PAGE_ROUTE = '/dashboard'
 export const MANAGE_TEAMS_ROUTE = '/teams'
 export const ADD_EDIT_TEAM = '/add-edit-team'
+export const ADD_EDIT_PLAYER = '/add-edit-player'
 export const MANAGE_TOURNAMENTS = '/tournaments'
 export const GAME_FORM_ROUTE = '/tournaments/:tournamentID/game/:gameID';
 export const MANAGE_EXECUTION = '/manage-execution'
