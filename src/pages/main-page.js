@@ -46,8 +46,8 @@ const MainPage = () => {
             {roundGames && <TournamentBracket games={roundGames}/>}
             <div className="grid grid-cols-3 gap-4">
                 {
-                   groupGames && ['A', 'B', 'C', 'D', 'E', 'F'].map(group =>
-                        <GroupTable group={group} games={groupGames.map(game => game.homeTeam.group === group)} />
+                   groupGames && Object.entities(groupGames).map(({group, games}) =>
+                        <GroupTable group={group} games={games} />
                     )
                 }
             </div>
